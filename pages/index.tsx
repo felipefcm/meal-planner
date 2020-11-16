@@ -1,20 +1,20 @@
 
 import React from 'react';
-import { Typography, CssBaseline } from '@material-ui/core'
+import { CssBaseline } from '@material-ui/core'
+
+import Header from '../components/Header';
+import Menu from '../components/Menu';
+import RecipeList from '../components/RecipeList';
 
 const MealPlanner: React.FC = () => {
 
 	return (
-		<React.Fragment>
+		<>
 			<CssBaseline />
-			<div className="App">
-				
-				<Typography variant="h1">Meal Planner</Typography>
-
-				
-				
-			</div>
-		</React.Fragment>
+			<Header />
+			<Menu />
+			<RecipeList />
+		</>
 	);
 };
 
