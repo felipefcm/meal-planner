@@ -1,0 +1,22 @@
+
+.buttonContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.button {
+}
+
+.media {
+	height: 120px;
+	width: 180px;
+	margin-right: 10px;
+}
+
+.item {
+	border: 1px solid;
+	border-radius: 8px;
+	border-color: lightgray;
+	box-shadow: 2px 2px 2px lightgray;
+}
