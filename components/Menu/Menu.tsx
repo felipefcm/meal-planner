@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Button, Tab, Tabs } from '@material-ui/core';
 
+import { useRouter } from 'next/router';
+
 import AddIcon from '@material-ui/icons/Add';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
@@ -11,14 +13,15 @@ import styles from './Menu.module.css';
 
 type Props = {
 	selected: string, 
-	selector: (option: string) => void 
 };
 
-const Menu: React.FC<Props> = ({selected, selector}) => {
+const Menu: React.FC<Props> = ({ selected }) => {
+
+	const router = useRouter();
 
 	const menuChange = (ev, value) => {
-		selector(value);
-	};
+		router.push(`/${value}`);
+	};	
 
 	return (
 		<div className={styles.container}>

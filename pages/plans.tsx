@@ -3,12 +3,13 @@ import React from 'react';
 
 import MealPlannerTop from '../components/MealPlannerTop';
 
-const App: React.FC = () => {
+const PlansPage: React.FC = () => {
 	return (
 		<>
-			<MealPlannerTop selected="recipes" />
+			<MealPlannerTop selected="plans" />
+
 		</>
 	);
 };
 
-export default App;
+export default PlansPage;

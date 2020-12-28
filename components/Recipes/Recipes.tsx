@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button, IconButton, List, ListItem, TextField, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import Link from 'next/link';
 
 import styles from './Recipes.module.css';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -12,15 +13,19 @@ const Recipes: React.FC = () => {
 		<>
 			<div className={styles.buttonContainer}>
 				
-				<Button 
-					className={styles.button} 
-					variant="contained" 
-					size="large" 
-					color="primary"
-					startIcon={<AddIcon />}
-				>
-					Create
-				</Button>
+				<Link href="/recipes">
+					<a>
+						<Button 
+							className={styles.button} 
+							variant="contained" 
+							size="large" 
+							color="primary"
+							startIcon={<AddIcon />}
+						>
+							Create
+						</Button>
+					</a>
+				</Link>
 
 				<TextField variant="outlined" label="Search" />
 			</div>
