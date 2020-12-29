@@ -1,0 +1,45 @@
+
+.mainContainer {
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.formContainer {
+	margin: 16px;
+	margin-top: 22px;
+	margin-bottom: 32px;
+}
+
+.formContainer * {
+	margin-bottom: 8px;
+}
+
+.recipeName {
+	width: 100%;
+	max-width: 500px;
+}
+
+.addIngredientsContainer {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.ingredientName {
+	max-width: 500px;
+	margin-right: 10px;
+}
+
+.tableContainer {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.navButtons button {
+	padding-left: 32px;
+	padding-right: 32px;
+	margin-left: 5px;
+	margin-right: 5px;
+}

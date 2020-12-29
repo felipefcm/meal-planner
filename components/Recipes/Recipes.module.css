@@ -1,4 +1,10 @@
 
+.mainContainer {
+	text-align: center;
+	margin: 0 auto;
+	padding: 5px;
+}
+
 .buttonContainer {
 	display: flex;
 	flex-direction: row;

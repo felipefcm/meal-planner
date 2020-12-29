@@ -10,10 +10,10 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 const Recipes: React.FC = () => {
 
 	return (
-		<>
+		<div className={styles.mainContainer}>
 			<div className={styles.buttonContainer}>
 				
-				<Link href="/recipes">
+				<Link href="/recipes/create">
 					<a>
 						<Button 
 							className={styles.button} 
@@ -46,7 +46,7 @@ const Recipes: React.FC = () => {
 					</IconButton>
 				</ListItem>
 			</List>
-		</>
+		</div>
 	);
 };
 

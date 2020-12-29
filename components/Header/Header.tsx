@@ -8,7 +8,7 @@ const Header: React.FC = () => {
 
 	return (
 		<div className={styles.container}>
-			<Typography variant="h2">Meal Planner</Typography>
+			<Typography variant="h3">Meal Planner</Typography>
 			<Divider className={styles.divider} />
 		</div>
 	);
