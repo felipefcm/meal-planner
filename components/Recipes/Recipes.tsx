@@ -32,14 +32,14 @@ const Recipes: React.FC = () => {
 
 			<List>
 				<ListItem className={styles.item}>
-					<img className={styles.media} src="http://lorempixel.com/400/200/food"/>
+					<img className={styles.media} src=""/>
 					<Typography variant="h5">Cool dish</Typography>
 					<IconButton color="primary">
 						<NavigateNextIcon />
 					</IconButton>
 				</ListItem>
 				<ListItem className={styles.item}>
-					<img className={styles.media} src="http://lorempixel.com/400/200/food"/>
+					<img className={styles.media} src=""/>
 					<Typography variant="h5">Cool dish</Typography>
 					<IconButton color="primary">
 						<NavigateNextIcon />
