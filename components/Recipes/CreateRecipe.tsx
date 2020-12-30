@@ -8,10 +8,10 @@ import IngredientsTable, { Ingredient } from './IngredientsTable';
 
 const CreateRecipe: React.FC = () => {
 
-	const [ingredients, setIngredients] = useState([]);
+	const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
-	const [ingredientName, setIngredientName] = useState();
-	const [ingredientQuantity, setIngredientQuantity] = useState();
+	const [ingredientName, setIngredientName] = useState<string>('');
+	const [ingredientQuantity, setIngredientQuantity] = useState<string>('');
 
 	const ingredientNameChanged = (event) => {
 		const name = event.target.value;
@@ -26,14 +26,34 @@ const CreateRecipe: React.FC = () => {
 	const addIngredient = () => {
 
 		if(!ingredientName) return;
+
+		const inputQuantity = ingredientQuantity ? ingredientQuantity : '1';
+		const quantityMatch = inputQuantity.match(/\d+/);
+		const quantity = parseInt(quantityMatch[0]);
+
+		const inputUnit = inputQuantity.replaceAll(quantity.toString(), '');
 		
 		const ingredient: Ingredient = {
 			name: ingredientName,
-			quantity: ingredientQuantity ? ingredientQuantity : '1',
+			quantity,
+			unit: inputUnit,
 		};
 
-		setIngredients([ ...ingredients, ingredient ]);
+		validateIngredient(ingredient);
+
+		const existing = ingredients.find(i => i.name === ingredient.name);
+		if(existing) {
+			existing.quantity += ingredient.quantity;
+			setIngredients(ingredients.slice());
+		}
+		else {
+			setIngredients([ ...ingredients, ingredient ]);
+		}
 	};
+
+	const validateIngredient = (ingredient: Ingredient) => {
+		ingredient.name = ingredient.name[0].toUpperCase() + ingredient.name.slice(1);
+	}
 
 	return (
 		<div className={styles.mainContainer}>
@@ -59,7 +79,6 @@ const CreateRecipe: React.FC = () => {
 						className={styles.ingredientQuantity} 
 						label="Quantity"
 						variant="outlined" 
-						type=""
 					/>
 
 					<Button onClick={() => addIngredient()} variant="contained" color="primary">Add</Button>

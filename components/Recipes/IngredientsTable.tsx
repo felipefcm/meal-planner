@@ -6,7 +6,8 @@ import styles from './IngredientsTable.module.css';
 
 export type Ingredient = {
 	name: string,
-	quantity: string,
+	quantity: number,
+	unit: string,
 };
 
 type Props = {
@@ -27,7 +28,7 @@ const IngredientsTable: React.FC<Props> = (props) => {
 				<TableBody>
 					{
 						props.ingredients.map((ingredient) => (
-							<TableRow>
+							<TableRow key={ingredient.name}>
 								<TableCell>{ingredient.name}</TableCell>
 								<TableCell>{ingredient.quantity}</TableCell>
 							</TableRow>
