@@ -1,11 +1,39 @@
 
-import React from 'react';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, TextField, Typography } from '@material-ui/core';
 
 import styles from './CreateRecipe.module.css';
 import Link from 'next/link';
+import IngredientsTable, { Ingredient } from './IngredientsTable';
 
 const CreateRecipe: React.FC = () => {
+
+	const [ingredients, setIngredients] = useState([]);
+
+	const [ingredientName, setIngredientName] = useState();
+	const [ingredientQuantity, setIngredientQuantity] = useState();
+
+	const ingredientNameChanged = (event) => {
+		const name = event.target.value;
+		setIngredientName(name);
+	};
+
+	const ingredientQuantityChanged = (event) => {
+		const quantity = event.target.value;
+		setIngredientQuantity(quantity);
+	};
+
+	const addIngredient = () => {
+
+		if(!ingredientName) return;
+		
+		const ingredient: Ingredient = {
+			name: ingredientName,
+			quantity: ingredientQuantity ? ingredientQuantity : '1',
+		};
+
+		setIngredients([ ...ingredients, ingredient ]);
+	};
 
 	return (
 		<div className={styles.mainContainer}>
@@ -16,31 +44,29 @@ const CreateRecipe: React.FC = () => {
 				<TextField className={styles.recipeName} id="recipe-name" label="Name" variant="outlined" />
 				
 				<div className={styles.addIngredientsContainer}>
-					<TextField className={styles.ingredientName} label="Add Ingredient" variant="outlined" />
-					<Button variant="contained" color="primary">Add</Button>
+					
+					<TextField
+						value={ingredientName}
+						onChange={ingredientNameChanged} 
+						className={styles.ingredientName} 
+						label="Ingredient name" 
+						variant="outlined" 
+					/>
+
+					<TextField 
+						value={ingredientQuantity}
+						onChange={ingredientQuantityChanged} 
+						className={styles.ingredientQuantity} 
+						label="Quantity"
+						variant="outlined" 
+						type=""
+					/>
+
+					<Button onClick={() => addIngredient()} variant="contained" color="primary">Add</Button>
 				</div>
 			</div>
 
-			<TableContainer className={styles.tableContainer} component={Paper}>
-				<Table size="small">
-					<TableHead>
-						<TableRow>
-							<TableCell>Ingredient</TableCell>
-							<TableCell>Qty</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						<TableRow>
-							<TableCell>Banana</TableCell>
-							<TableCell>1</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>Garlic</TableCell>
-							<TableCell>3</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			</TableContainer>
+			<IngredientsTable ingredients={ingredients} />
 
 			<div className={styles.navButtons}>
 				

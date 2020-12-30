@@ -29,12 +29,10 @@
 
 .ingredientName {
 	max-width: 500px;
-	margin-right: 10px;
 }
 
-.tableContainer {
-	margin-top: 10px;
-	margin-bottom: 10px;
+.ingredientQuantity {
+	max-width: 120px;
 }
 
 .navButtons button {
