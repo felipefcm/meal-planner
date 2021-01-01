@@ -5,6 +5,8 @@ import { AppProps } from 'next/app';
 
 import { CssBaseline } from '@material-ui/core';
 
+import '../styles/globals.css';
+
 function MyApp({ Component, pageProps }: AppProps) {
 	
 	return (

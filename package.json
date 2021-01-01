@@ -1,22 +1,28 @@
 {
   "name": "meal-planner",
   "version": "0.1",
-  "description": "Simple app to help meals planning and groceries shopping",
+  "description": "Simple app to help meal and groceries planning",
+  "private": true,
   "author": "felipefcm",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "mongodb": "^3.6.3",
     "next": "^10.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.6.3",
     "@types/node": "^14.14.7",
     "@types/react": "^16.9.56",
+    "@vercel/node": "^1.8.5",
     "typescript": "^4.0.5"
   }
 }
