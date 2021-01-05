@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
+import axios from 'axios';
 
 import styles from './CreateRecipe.module.css';
 import Link from 'next/link';
@@ -57,15 +58,44 @@ const CreateRecipe: React.FC = () => {
 		else {
 			setIngredients([ ...ingredients, ingredient ]);
 		}
+
+		setIngredientName('');
+		setIngredientQuantity('');
 	};
 
 	const validateIngredient = (ingredient: Ingredient) => {
 		ingredient.name = ingredient.name[0].toUpperCase() + ingredient.name.slice(1);
 	}
 
-	const createRecipe = () => {
+	const incrementIngredient = (name: string) => {
+		const ingredient = ingredients.find(i => i.name === name);
+		++ingredient.quantity;
+		setIngredients(ingredients.slice());
+	};
+	
+	const decrementIngredient = (name: string) => {
+		
+		const ingredient = ingredients.find(i => i.name === name);
+		--ingredient.quantity;
 
-		if(!recipeName.trim()) {
+		if(ingredient.quantity <= 0) {
+			removeIngredient(name);
+			return;
+		}
+
+		setIngredients(ingredients.slice());
+	};
+	
+	const removeIngredient = (name: string) => {
+		const newIngredients = ingredients.filter(i => i.name !== name);
+		setIngredients(newIngredients);
+	};
+
+	const createRecipe = async () => {
+
+		const name = recipeName.trim();
+
+		if(!name) {
 			setUserMessage('Please insert recipe name');
 			return;
 		}
@@ -73,6 +103,22 @@ const CreateRecipe: React.FC = () => {
 		if(ingredients.length <= 0) {
 			setUserMessage('There must be at least one ingredient');
 			return;
+		}
+
+		const resp = await axios.post('/api/recipes/create', {
+			name,
+			ingredients,
+		}).catch(err => {
+			if(err.response.data.msg === 'EXISTING')
+				setUserMessage('Recipe already exists');
+		});
+
+		if(resp && resp.data.msg === 'OK') {
+			setUserMessage('Recipe created');
+			setRecipeName('');
+			setIngredientName('');
+			setIngredientQuantity('');
+			setIngredients([]);
 		}
 	};
 
@@ -86,10 +132,10 @@ const CreateRecipe: React.FC = () => {
 				<TextField
 					value={recipeName}
 					onChange={recipeNameChanged}
-					className={styles.recipeName} 
-					id="recipe-name" 
-					label="Name" 
-					variant="outlined" 
+					className={styles.recipeName}
+					id="recipe-name"
+					label="Name"
+					variant="outlined"
 				/>
 				
 				<div className={styles.addIngredientsContainer}>
@@ -116,7 +162,12 @@ const CreateRecipe: React.FC = () => {
 
 			</div>
 
-			<IngredientsTable ingredients={ingredients} />
+			<IngredientsTable 
+				ingredients={ingredients}
+				incremented={incrementIngredient}
+				decremented={decrementIngredient}
+				removed={removeIngredient}
+			/>
 
 			<Typography color="error" variant="h6" hidden={userMessage.length === 0}>{userMessage}</Typography>
 

@@ -25,13 +25,13 @@ const CreateRecipePage: React.FC = () => {
 			<Header />
 
 			{
-				!loggedIn && <GoogleLogin 
+				!loggedIn && <div style={{textAlign: 'center'}}><GoogleLogin 
 					clientId={GOOGLE_CLIENT_ID}
 					buttonText="Login"
 					onSuccess={googleResponseOK}
 					onFailure={googleResponseError}
 					cookiePolicy="single_host_origin"
-				/>
+				/></div>
 			}
 
 			{
