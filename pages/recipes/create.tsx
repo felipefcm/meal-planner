@@ -6,7 +6,7 @@ import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import Header from '../../components/Header/Header';
 import CreateRecipe from '../../components/Recipes/CreateRecipe';
 
-const { GOOGLE_CLIENT_ID } = process.env;
+const { NEXT_PUBLIC_GOOGLE_CLIENT_ID } = process.env;
 
 const CreateRecipePage: React.FC = () => {
 
@@ -26,7 +26,7 @@ const CreateRecipePage: React.FC = () => {
 
 			{
 				!loggedIn && <div style={{textAlign: 'center'}}><GoogleLogin 
-					clientId={GOOGLE_CLIENT_ID}
+					clientId={NEXT_PUBLIC_GOOGLE_CLIENT_ID}
 					buttonText="Login"
 					onSuccess={googleResponseOK}
 					onFailure={googleResponseError}
