@@ -1,10 +1,9 @@
 
-import axios from 'axios';
 import { GetStaticProps } from 'next';
 import React from 'react';
 
 import MealPlannerTop from '../components/MealPlannerTop';
-import Recipes from '../components/Recipes/Recipes';
+import RecipesList from '../components/Recipes/RecipesList';
 import DB from '../lib/db';
 
 type Props = {
@@ -15,7 +14,7 @@ const RecipesPage: React.FC<Props> = (props) => {
 	return (
 		<>
 			<MealPlannerTop selected="recipes" />
-			<Recipes recipes={props.recipes} />
+			<RecipesList recipes={props.recipes} />
 		</>
 	);
 };
@@ -28,13 +27,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	const recipes = db.collection('recipes');
 
 	const recipeItems = await recipes.find({}).toArray();
-
-	console.log(`GOT HH`, recipeItems);
 	
 	return {
 		props: {
-			recipes: recipeItems.map(i => ({ name: i.name, ingredients: i.ingredients })),
+			recipes: recipeItems.map(i => ({ name: i.name, ingredients: i.ingredients, imageURL: i.imageURL || '' })),
 		},
-		revalidate: 2
+		revalidate: 1
 	};
 };

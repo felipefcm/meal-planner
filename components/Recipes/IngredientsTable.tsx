@@ -7,12 +7,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 import styles from './IngredientsTable.module.css';
-
-export type Ingredient = {
-	name: string,
-	quantity: number,
-	unit: string,
-};
+import { Ingredient } from '../../lib/Ingredient';
 
 type Props = {
 	ingredients: Ingredient[],

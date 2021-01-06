@@ -29,6 +29,7 @@ const createRecipe = async (body: any, res: NowResponse) => {
 	await recipes.insertOne({
 		name: newRecipe.name,
 		ingredients: newRecipe.ingredients,
+		imageURL: newRecipe.imageURL,
 	});
 
 	res.status(201).send({ msg: 'OK' });

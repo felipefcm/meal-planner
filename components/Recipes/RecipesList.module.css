@@ -15,7 +15,8 @@
 }
 
 .media {
-	height: 120px;
+	height: 100px;
+	max-height: 100px;
 	width: 180px;
 	margin-right: 10px;
 }

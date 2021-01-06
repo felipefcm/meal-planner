@@ -1,11 +1,13 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import axios from 'axios';
 
-import styles from './CreateRecipe.module.css';
+import styles from './CreateRecipeForm.module.css';
 import Link from 'next/link';
-import IngredientsTable, { Ingredient } from './IngredientsTable';
+import IngredientsTable from './IngredientsTable';
+import { Ingredient } from '../../lib/Ingredient';
+import { Recipe } from '../../lib/Recipe';
 
 const CreateRecipe: React.FC = () => {
 
@@ -14,6 +16,8 @@ const CreateRecipe: React.FC = () => {
 	const [recipeName, setRecipeName] = useState<string>('');
 	const [ingredientName, setIngredientName] = useState<string>('');
 	const [ingredientQuantity, setIngredientQuantity] = useState<string>('');
+
+	const [imageURL, setImageURL] = useState<string>('');
 
 	const [userMessage, setUserMessage] = useState('');
 
@@ -25,6 +29,11 @@ const CreateRecipe: React.FC = () => {
 	const ingredientQuantityChanged = (event) => {
 		const quantity = event.target.value;
 		setIngredientQuantity(quantity);
+	};
+
+	const imageURLChanged = (event) => {
+		const url = event.target.value;
+		setImageURL(url);
 	};
 
 	const recipeNameChanged = (event) => {
@@ -42,11 +51,7 @@ const CreateRecipe: React.FC = () => {
 
 		const inputUnit = inputQuantity.replaceAll(quantity.toString(), '');
 		
-		const ingredient: Ingredient = {
-			name: ingredientName,
-			quantity,
-			unit: inputUnit,
-		};
+		const ingredient = new Ingredient(ingredientName, quantity, inputUnit);
 
 		validateIngredient(ingredient);
 
@@ -105,19 +110,22 @@ const CreateRecipe: React.FC = () => {
 			return;
 		}
 
-		const resp = await axios.post('/api/recipes/create', {
-			name,
-			ingredients,
-		}).catch(err => {
+		setUserMessage('Creating...');
+		const recipe = new Recipe(name, ingredients);
+		
+		if(imageURL) recipe.imageURL = imageURL;
+
+		const { data: resp } = await axios.post('/api/recipes/create', recipe).catch(err => {
 			if(err.response.data.msg === 'EXISTING')
 				setUserMessage('Recipe already exists');
 		});
 
-		if(resp && resp.data.msg === 'OK') {
+		if(resp && resp.msg === 'OK') {
 			setUserMessage('Recipe created');
 			setRecipeName('');
 			setIngredientName('');
 			setIngredientQuantity('');
+			setImageURL('');
 			setIngredients([]);
 		}
 	};
@@ -158,6 +166,16 @@ const CreateRecipe: React.FC = () => {
 
 					<Button onClick={() => addIngredient()} variant="contained" color="primary">Add</Button>
 					
+				</div>
+					<TextField
+						value={imageURL}
+						onChange={imageURLChanged}
+						className={styles.imageURL}
+						label="Image URL"
+						variant="outlined"
+					/>
+				<div>
+
 				</div>
 
 			</div>

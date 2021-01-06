@@ -5,19 +5,14 @@ import AddIcon from '@material-ui/icons/Add';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Link from 'next/link';
 
-import styles from './Recipes.module.css';
-import { Ingredient } from './IngredientsTable';
-
-export type Recipe = {
-	name: string,
-	ingredients: Ingredient[],
-};
+import styles from './RecipesList.module.css';
+import { Recipe } from '../../lib/Recipe';
 
 type Props = {
 	recipes?: Recipe[],
 };
 
-const Recipes: React.FC<Props> = (props) => {
+const RecipesList: React.FC<Props> = (props) => {
 
 	return (
 		<div className={styles.mainContainer}>
@@ -46,7 +41,7 @@ const Recipes: React.FC<Props> = (props) => {
 					{
 						props.recipes && props.recipes.map(recipe => (
 							<ListItem className={styles.item} key={recipe.name}>
-								<img className={styles.media} src=""/>
+								<img className={styles.media} src={recipe.imageURL || ''}/>
 								<Typography variant="h5">{recipe.name}</Typography>
 								<IconButton color="primary">
 									<NavigateNextIcon />
@@ -61,4 +56,4 @@ const Recipes: React.FC<Props> = (props) => {
 	);
 };
 
-export default Recipes;
+export default RecipesList;
